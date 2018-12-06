@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}CS IP Traffic detail APIS{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<h1>CS IP Traffic detail APIS</h1>
+
+<p>The GetAllTraffic API is a simple GET which returns all South West road traffic data in JSON</p>
+<p>
+  <a href="/api/getalltraffic" class="btn btn-default">/api/getalltraffic</a>
+</p>
+<p>The GetAllTrafficByYear API takes a year parameter and GETs all South West road traffic data for that year as JSON</p>
+<p>
+    <a href="/api/gettrafficbyyear/2007" class="btn btn-default">/api/gettrafficbyyear/:year</a>
+</p>
+<p>The GetAllTrafficByMinUsage API takes a numberical minimum vehicle usage parameter and GETs all South West road traffic data for roads which have at least that number of vehicles use them, as JSON</p>
+<p>
+    <a href="/api/gettrafficbyminusage/90000" class="btn btn-default">/api/gettrafficbyminusage/:usage</a>
+</p>
+<p>The ClearData API clears all the data in the internal DB cache of road traffic data. To repopulate call ResyncData. It returns as JSON the number of rows deleted.</p>
+<p>
+    <a href="/api/cleardata" class="btn btn-default">/api/cleardata</a>
+</p>
+<p>The ResyncData API first clears all the cache data in the DB and then repopulates it from the Gov.uk API. It returns as JSON the number of rows populated.</p>
+<p>
+    <a href="/api/resyncdata" class="btn btn-default">/api/resyncdata</a>
+</p>
+<p>
+N.B. As time allows, a future improvement would be to make use of Flask-RESTful to provide a Swagger view of these APIs.
+</p>
+{% endblock %}

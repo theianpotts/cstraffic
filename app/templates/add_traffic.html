@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Add Traffic{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Add Traffic</h1>
+  <form action="/add" method="POST">
+    <div class="form-group">
+    <label for="aadfyearfield">AADFYear</label>
+    <input type="text" class="form-control" id="aadfyearfield" name="aadfyear" aria-describedby="emailHelp" placeholder="AADFYear">
+    <small id="emailHelp" class="form-text text-muted">AADFYear</small>
+  </div>
+  <div class="form-group">
+    <label for="cpfield">CP</label>
+    <input type="text" class="form-control" id="cpfield" name="cp" aria-describedby="emailHelp" placeholder="CP">
+    <small id="emailHelp" class="form-text text-muted">CP.</small>
+  </div>
+  <button type="submit" class="btn btn-default">Add</button>
+  </form>
+{% endblock %}

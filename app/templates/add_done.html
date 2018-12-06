@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Add Traffic Complete{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Your traffic details have been added</h1>
+  <p>
+    AADFYear: {{ aadfyear }}<br/>
+    CP: {{ cp }}
+  </p>
+  <a href="/">View all traffic</a>
+{% endblock %}

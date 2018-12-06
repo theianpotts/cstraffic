@@ -1,7 +1,7 @@
 ---
 services: app-service\web,app-service
 platforms: python
-author: cephalin
+author: theianpotts
 ---
 
 # Flask and PostgreSQL sample for Azure App Service
