@@ -10,7 +10,9 @@ It is hosted on Azure and may be viewed at:
 
  http://csiptraffic.azurewebsites.net/
 
-This home page provides a list and description of the various API calls available.
+This home page provides a list and description of the various API calls available. (A nice future improvement would be to make use of Flask RESTful to add Swagger support for the APIs.)
+
+The application makes use of the SQLAlchemy ORM and separates concerns between controllers and services.
 
 The code can be downloaded and built locally, but will make use of the DB as hosted in Azure. The environment variables 'DBUSER' and 'DBPASS' will need to be set with the username and password for access to the DB (available from the author).
 
