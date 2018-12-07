@@ -4,15 +4,30 @@ platforms: python
 author: theianpotts
 ---
 
-# Flask and PostgreSQL sample for Azure App Service
+This is a Python application making use of Flask and PostgreSQL to provide api calls to view and query data about road traffic on South West England roads.
 
-This is a sample application that you can use to follow along with the tutorial at 
-[Build a Python and PostgreSQL web app in Azure](https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-python-postgresql). 
+It is hosted on Azure and may be viewed at:
 
-The sample is a simple Python Flask application that connects to a PostgreSQL database via SQLAlchemy.
+ http://csiptrafficapi.azurewebsites.net/
 
-The database connection information is specified via environment variables `DBHOST`, `DBPASS`, `DBUSER`, and `DBNAME`. This app always uses the default PostgreSQL port.
+This home page provides a list and description of the various API calls available.
 
-# Contributing
+The code can be downloaded and built locally, but will make use of the DB as hosted in Azure. The environment variable 'DBPASS' will need to be set with the password for access to the DB (available from the author).
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+Once the code is downloaded... run the following in PowerShell on Windows.
+
+(CD to folder where code is downloaded)
+
+pip install virtualenv
+virtualenv venv
+venv/Scripts/activate
+pip install -r requirements.txt
+cd app
+Set-Item Env:FLASK_APP ".\app.py"
+Set-Item DBPASS "xxxxxx" 
+flask db upgrade
+flask run
+
+Then browse to:
+http://127.0.0.1:5000/
+
