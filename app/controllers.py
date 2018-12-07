@@ -1,33 +1,33 @@
 import json
-import postgres_copy
-import tempfile, shutil, urllib
 
-from flask import Flask, render_template, request, Response
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+from flask import Response
 from modelenc import AlchemyEncoder
 from app import app
-from models import Traffic
+from services import get_all_traffic, get_traffic_by_year, get_traffic_by_minusage, get_busiest_roads_by_year, clear_data, resync_data
 
 @app.route('/api/getalltraffic')
-def get_all_traffic():
-    traffico = Traffic.query.all()
-    return json.dumps([t for t in traffico], cls=AlchemyEncoder)
+def api_get_all_traffic():
+    traffic = get_all_traffic()
+    return json.dumps([t for t in traffic], cls=AlchemyEncoder)
 
 @app.route('/api/gettrafficbyyear/<year>')
-def get_traffic_by_year(year):
-    traffico = Traffic.query.filter(Traffic.aadfyear == year).all()
-    return json.dumps([t for t in traffico], cls=AlchemyEncoder)
+def api_get_traffic_by_year(year):
+    traffic = get_traffic_by_year(year)
+    return json.dumps([t for t in traffic], cls=AlchemyEncoder)
 
 @app.route('/api/gettrafficbyminusage/<usage>')
-def get_traffic_by_minusage(usage):
-    traffico = Traffic.query.filter(Traffic.allmotorvehicles >= usage).all()
-    return json.dumps([t for t in traffico], cls=AlchemyEncoder)
+def api_get_traffic_by_minusage(usage):
+    traffic = get_traffic_by_minusage(usage)
+    return json.dumps([t for t in traffic], cls=AlchemyEncoder)
+
+@app.route('/api/getbusiestroadsbyyear/<year>/<count>')
+def api_get_busiest_roads_by_year(year, count):
+    traffic = get_busiest_roads_by_year(year, count)
+    return json.dumps([t for t in traffic], cls=AlchemyEncoder)
 
 @app.route('/api/cleardata')
-def clear_data():
-    numDeleted = Traffic.query.delete();
-    db.session.commit()
+def api_clear_data():
+    numDeleted = clear_data()
 
     data = {
         'rows' : numDeleted
@@ -38,26 +38,16 @@ def clear_data():
     return resp
 
 @app.route('/api/resyncdata')
-def resync_data():
-    numDeleted = Traffic.query.delete();
-    db.session.commit()
-
-    data = urllib.urlopen('http://api.dft.gov.uk/v3/trafficcounts/export/la/Devon.csv').read()
-
-    fd, path = tempfile.mkstemp()
-    os.write(fd, data)
-    os.close(fd)
-
-    with open(path) as fp:
-        postgres_copy.copy_from(fp, Traffic, db.get_engine(), format='csv', header='true')
-
-    os.remove(path)
+def api_resync_data():
+    count = resync_data()
 
     data = {
-        'rows' : Traffic.query.count()
+        'rows' : count
     }
     js = json.dumps(data)
 
     resp = Response(js, status=200, mimetype='application/json')
+    if count == 0:
+        resp.status = 500;
     return resp
 
