@@ -9,17 +9,11 @@ from flask_sqlalchemy import SQLAlchemy
 from modelenc import AlchemyEncoder
 
 database_uri = 'postgresql+psycopg2://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
-	dbuser='manager@ip-postgres-tests',
-	dbpass='supersecretpass',
+	dbuser=dbuser=os.environ['DBUSER'],,
+        dbpass=os.environ['DBPASS'],
 	dbhost='ip-postgres-tests.postgres.database.azure.com',
 	dbname='cstasktraffic'
-
 	)
-  #  dbuser=os.environ['DBUSER'],
-  #  dbpass=os.environ['DBPASS'],
-  #  dbhost=os.environ['DBHOST'],
-  #  dbname=os.environ['DBNAME']
-#)
 
 app = Flask(__name__)
 app.config.update(
