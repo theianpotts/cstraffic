@@ -8,11 +8,11 @@ This is a Python application making use of Flask and PostgreSQL to provide api c
 
 It is hosted on Azure and may be viewed at:
 
- http://csiptrafficapi.azurewebsites.net/
+ http://csiptraffic.azurewebsites.net/
 
 This home page provides a list and description of the various API calls available.
 
-The code can be downloaded and built locally, but will make use of the DB as hosted in Azure. The environment variable 'DBPASS' will need to be set with the password for access to the DB (available from the author).
+The code can be downloaded and built locally, but will make use of the DB as hosted in Azure. The environment variables 'DBUSER' and 'DBPASS' will need to be set with the username and password for access to the DB (available from the author).
 
 Once the code is downloaded... run the following in PowerShell on Windows.
 
@@ -24,6 +24,7 @@ venv/Scripts/activate
 pip install -r requirements.txt
 cd app
 Set-Item Env:FLASK_APP ".\app.py"
+Set-Item DBUSER "xxxxxx" 
 Set-Item DBPASS "xxxxxx" 
 flask db upgrade
 flask run
