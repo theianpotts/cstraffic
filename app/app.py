@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from modelenc import AlchemyEncoder
 
 database_uri = 'postgresql+psycopg2://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
-	dbuser=dbuser=os.environ['DBUSER'],,
+	dbuser=dbuser=os.environ['DBUSER'],
         dbpass=os.environ['DBPASS'],
 	dbhost='ip-postgres-tests.postgres.database.azure.com',
 	dbname='cstasktraffic'
